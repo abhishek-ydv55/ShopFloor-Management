@@ -1,0 +1,31 @@
+# ---- Maven build output ----
+target/
+
+# ---- IDE ----
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- Spring Boot ----
+*.jar
+*.war
+
+# ---- Frontend: downloaded Node binary (goes into target/) ----
+# Already covered by target/ above, but listed explicitly for clarity
+target/node/
+
+# ---- Frontend: Angular project dependencies and build artifacts ----
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# ---- Secrets / local overrides ----
+application-local.properties
+application-secret.properties

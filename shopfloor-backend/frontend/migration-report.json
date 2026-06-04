@@ -1,0 +1,80 @@
+{
+  "project": "ShopFloor3.2 → Angular 21",
+  "migrationDate": "2026-05-23",
+  "angularVersion": "21",
+
+  "fileMappings": [
+    { "original": "Landing/index.html + style.css",       "angular": "features/landing/pages/home.component.*",              "type": "component" },
+    { "original": "Landing/about.html",                    "angular": "features/landing/pages/about.component.ts",           "type": "component" },
+    { "original": "Landing/contact_us.html",               "angular": "features/landing/pages/contact.component.ts",        "type": "component" },
+    { "original": "Login/login.html + script.js",          "angular": "features/login/login.component.* + AuthService",     "type": "component+service" },
+    { "original": "Admin/index.html",                      "angular": "features/admin/pages/admin-dashboard.component.ts",  "type": "component" },
+    { "original": "Admin/registernewuser.html + js",       "angular": "features/admin/pages/register-worker.component.ts", "type": "component" },
+    { "original": "Admin/removeworker.html + js",          "angular": "features/admin/pages/remove-worker.component.ts",   "type": "component" },
+    { "original": "Admin/worker-list.html + js",           "angular": "features/admin/pages/worker-list.component.ts",     "type": "component" },
+    { "original": "Admin/js/base.js (localStorage logic)", "angular": "core/services/worker.service.ts",                   "type": "service" },
+    { "original": "Manager/index.html",                    "angular": "features/manager/pages/manager-dashboard.component.ts", "type": "component" },
+    { "original": "Manager/maintenance.html",              "angular": "features/manager/pages/manager-maintenance.component.ts", "type": "component" },
+    { "original": "Manager/assign-technician.html + js",   "angular": "features/manager/pages/assign-technician.component.ts", "type": "component" },
+    { "original": "Manager/procurement.html",              "angular": "features/manager/pages/manager-procurement.component.ts", "type": "component" },
+    { "original": "Manager/manage-machines.html + js",     "angular": "features/manager/pages/manage-machines.component.ts", "type": "component" },
+    { "original": "Supervisor/supervisor.html + script.js","angular": "features/supervisor/pages/supervisor-home.component.ts", "type": "component" },
+    { "original": "Supervisor/dashboard.html",             "angular": "features/supervisor/pages/supervisor-dashboard.component.ts", "type": "component" },
+    { "original": "Supervisor/createTicket.html + create-ticket.js", "angular": "features/supervisor/pages/create-ticket.component.ts", "type": "component" },
+    { "original": "Supervisor/script.js (ticket data)",   "angular": "core/services/ticket.service.ts",                   "type": "service" },
+    { "original": "Technician/home.html + js",             "angular": "features/technician/pages/technician-home.component.ts", "type": "component" },
+    { "original": "Technician/mytask.html + js",           "angular": "features/technician/pages/my-tasks.component.ts",  "type": "component" },
+    { "original": "Technician/spare-request.html + js",    "angular": "features/technician/pages/spare-requests.component.ts", "type": "component" },
+    { "original": "Maintenance/dashboard.html + js",       "angular": "features/maintenance/pages/maintenance-dashboard.component.ts", "type": "component" },
+    { "original": "Maintenance/issue-report.html + js",    "angular": "features/maintenance/pages/issue-report.component.ts", "type": "component" },
+    { "original": "Maintenance/issue-status.html + js",    "angular": "features/maintenance/pages/issue-status.component.ts", "type": "component" },
+    { "original": "Maintenance/status dashboard.html + js","angular": "features/maintenance/pages/status-dashboard.component.ts", "type": "component" },
+    { "original": "Maintenance/use hour.html + js",        "angular": "features/maintenance/pages/use-hour.component.ts", "type": "component" },
+    { "original": "Inventory/inventory.html",              "angular": "features/inventory/inventory.component.ts",         "type": "component" },
+    { "original": "Procurement/procurement.html",          "angular": "features/procurement/procurement.component.ts",     "type": "component" }
+  ],
+
+  "designTokens": {
+    "colors": ["--brown-900","--brown-700","--brown-500","--red-700","--red-500","--red-300","--cream-bg","--white","--gray-light","--gray-border","--text-dark","--text-muted","--accent-blue","--accent-green","--accent-red"],
+    "gradients": ["--grad-header","--grad-brand","--grad-dark","--grad-footer"],
+    "typography": ["--font-xs","--font-sm","--font-base","--font-lg","--font-xl","--font-2xl","--font-3xl","--font-4xl","--font-family","--font-family-heading"],
+    "spacing": ["--space-1","--space-2","--space-3","--space-4","--space-5","--space-6","--space-8","--space-10","--space-12","--space-16"],
+    "radii": ["--radius-sm","--radius-md","--radius-lg","--radius-xl","--radius-full"],
+    "shadows": ["--shadow-sm","--shadow-md","--shadow-lg","--shadow-brand"],
+    "layout": ["--sidebar-width","--topbar-height","--container-max"],
+    "transitions": ["--transition","--transition-slow"]
+  },
+
+  "uiComponents": [
+    { "name": "ButtonComponent",          "path": "ui/button/button.component.ts",             "tests": true },
+    { "name": "CardComponent",            "path": "ui/card/card.component.ts",                 "tests": false },
+    { "name": "FormFieldComponent",       "path": "ui/form-field/form-field.component.ts",     "tests": true },
+    { "name": "ModalComponent",           "path": "ui/modal/modal.component.ts",               "tests": true },
+    { "name": "NavbarComponent",          "path": "ui/navbar/navbar.component.ts",             "tests": false },
+    { "name": "SidebarComponent",         "path": "ui/sidebar/sidebar.component.ts",           "tests": false },
+    { "name": "NotificationComponent",    "path": "ui/notification/notification.component.ts", "tests": false },
+    { "name": "DashboardTopbarComponent", "path": "ui/dashboard-topbar/dashboard-topbar.component.ts", "tests": false }
+  ],
+
+  "services": [
+    { "name": "AuthService",   "path": "core/services/auth.service.ts",   "tests": true, "logic": "Login validation, role mapping, localStorage session" },
+    { "name": "WorkerService", "path": "core/services/worker.service.ts", "tests": true, "logic": "CRUD workers, localStorage persistence, search/filter" },
+    { "name": "TicketService", "path": "core/services/ticket.service.ts", "tests": true, "logic": "Ticket CRUD, issue reporting, use-hour logging, stats" }
+  ],
+
+  "routing": {
+    "strategy": "lazy-loaded standalone components per route",
+    "totalRoutes": 26,
+    "lazyChunks": true
+  },
+
+  "deviations": [
+    "Chart.js replaced with pure-CSS bar chart",
+    "Filenames with spaces (status dashboard.html, use hour.html) normalized to kebab-case routes",
+    "inline onclick logout replaced with AuthService.logout() via Angular Router",
+    "Worker/index.html was missing from ZIP — placeholder created",
+    "Inventory and Procurement large static tables converted to dynamic components"
+  ],
+
+  "testsAdded": 49
+}

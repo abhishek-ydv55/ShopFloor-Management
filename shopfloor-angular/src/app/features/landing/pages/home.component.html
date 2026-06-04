@@ -1,0 +1,69 @@
+<app-navbar [links]="navLinks"></app-navbar>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-overlay">
+    <h1>Manage Smartly with ManuVya<sup class="tm">™</sup></h1>
+    <p class="subtitle">
+      A secure, governed platform to manage work and resolve issues on your Shop Floor.
+      Login below to your Platform.
+    </p>
+    <a routerLink="/login" class="login-btn">Login to ManuVya<sup>™</sup></a>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights">
+  <div class="container grid">
+    <div class="card highlight-card" [class.active]="activeCard() === 0">
+      <h3>What is ManuVya?</h3>
+      <p>ManuVya is a smart solution for your Shop Floor needs.</p>
+    </div>
+    <div class="card highlight-card" [class.active]="activeCard() === 1">
+      <h3>Manage Workforce</h3>
+      <p>ManuVya offers efficient workforce and resource management.</p>
+    </div>
+    <div class="card highlight-card" [class.active]="activeCard() === 2">
+      <h3>Issue Resolving</h3>
+      <p>Centralised issue filing and tracking for quick resolution.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="container">
+    <h2 class="features-heading">Features We Offer</h2>
+    <div *ngFor="let f of features" class="feature-row" [class.reverse]="f.reverse">
+      <div class="feature-image">
+        <img [src]="f.img" [alt]="f.alt" loading="lazy" />
+      </div>
+      <div class="feature-box">
+        <h4>{{ f.title }}</h4>
+        <p>{{ f.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SMART CTA -->
+<section class="smart-content-box">
+  <div class="container">
+    <div class="content-wrapper">
+      <h2>Above were just the <span>snippets</span>!!</h2>
+      <p class="highlight-text">Want to know how amazing <strong>ManuVya<sup>™</sup></strong> really is?</p>
+      <p class="sub-text">
+        Just login below and manage your <strong>SHOP FLOOR</strong><br>
+        <span>smartly</span> and <span>efficiently</span>.
+      </p>
+      <a routerLink="/login" class="login-btn">Login to ManuVya</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>© All Copyrights reserved to ManuVya<sup class="tm">™</sup>, 2026</p>
+  </div>
+</footer>

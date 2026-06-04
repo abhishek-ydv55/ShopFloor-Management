@@ -1,0 +1,68 @@
+<app-navbar [links]="navLinks" title="Shop Floor Management"></app-navbar>
+
+<main class="login-main">
+  <section class="login-layout">
+    <!-- Left info panel -->
+    <div class="login-info-card">
+      <div class="info-kicker">Welcome back</div>
+      <h1>Secure access to your workspace</h1>
+      <p>Sign in to manage operations, monitor tickets, and keep your workflow running smoothly.</p>
+      <ul class="info-points">
+        <li>✓ Role-based access for every team</li>
+        <li>✓ Fast and secure authentication</li>
+        <li>✓ One place for operations and maintenance</li>
+      </ul>
+    </div>
+
+    <!-- Right login form -->
+    <div class="login-form-wrap">
+      <form class="login-card" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-header">
+          <div class="form-kicker">Sign in</div>
+          <h3>Log in to continue</h3>
+          <p>Use your official email and password to access your dashboard.</p>
+        </div>
+
+        <app-form-field label="Email" fieldId="email" [error]="emailError()" [required]="true">
+          <input
+            type="email" id="email" name="email"
+            placeholder="Enter email address"
+            autocomplete="email"
+            [(ngModel)]="email"
+            [class.input-error]="emailError()"
+          />
+        </app-form-field>
+
+        <app-form-field label="Password" fieldId="password" [error]="passwordError()" [required]="true">
+          <div class="password-wrap">
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              id="password" name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              [(ngModel)]="password"
+              [class.input-error]="passwordError()"
+            />
+            <button type="button" class="toggle-pw" (click)="togglePassword()" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+              {{ showPassword() ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </app-form-field>
+
+        <div class="form-row">
+          <label class="remember-me">
+            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <app-button type="submit" [fullWidth]="true" [loading]="loading()">
+          {{ loading() ? 'Signing in…' : 'Log In' }}
+        </app-button>
+
+        <p class="login-note">Authorized users only. Contact your administrator if you need access.</p>
+      </form>
+    </div>
+  </section>
+</main>
