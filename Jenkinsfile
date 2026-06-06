@@ -17,9 +17,9 @@ pipeline {
         stage('Verify Environment') {
             steps {
                 bat 'java -version'
-                bat 'mvn -version'
                 bat 'node -v'
                 bat 'npm -v'
+                bat 'where mvn'
             }
         }
 
@@ -42,7 +42,7 @@ pipeline {
         stage('Build Spring Boot') {
             steps {
                 dir('shopfloor-backend') {
-                    bat 'mvn clean package -DskipTests'
+                    bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" clean package -DskipTests'
                 }
             }
         }
@@ -50,16 +50,28 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 dir('shopfloor-backend') {
-                    bat 'mvn test'
+                    bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" test'
                 }
             }
         }
 
         stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar'
-                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*'
+                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*', fingerprint: true
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'BUILD SUCCESSFUL ✔'
+        }
+        failure {
+            echo 'BUILD FAILED ❌'
+        }
+        always {
+            cleanWs()
         }
     }
 }
