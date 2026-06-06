@@ -19,7 +19,12 @@ pipeline {
                 bat 'java -version'
                 bat 'node -v'
                 bat 'npm -v'
-                bat 'where mvn'
+            }
+        }
+
+        stage('Check Maven Directly') {
+            steps {
+                bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" -version'
             }
         }
 
@@ -57,15 +62,15 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar', fingerprint: true
-                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*', fingerprint: true
+                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar'
+                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*'
             }
         }
     }
 
     post {
         success {
-            echo 'BUILD SUCCESSFUL ✔'
+            echo 'BUILD SUCCESS ✔'
         }
         failure {
             echo 'BUILD FAILED ❌'
