@@ -1,14 +1,9 @@
 pipeline {
     agent any
 
-    options {
-        timestamps()
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-    }
-
     tools {
-        jdk 'JDK17'        // IMPORTANT: configure in Jenkins Tools
-        maven 'Maven3'     // IMPORTANT: configure in Jenkins Tools
+        jdk 'JDK17'
+        maven 'Maven3'
     }
 
     stages {
@@ -69,15 +64,12 @@ pipeline {
     }
 
     post {
-
         success {
             echo 'BUILD SUCCESSFUL ✔'
         }
-
         failure {
             echo 'BUILD FAILED ❌'
         }
-
         always {
             cleanWs()
         }
