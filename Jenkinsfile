@@ -6,6 +6,11 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
+    tools {
+        jdk 'JDK17'        // IMPORTANT: configure in Jenkins Tools
+        maven 'Maven3'     // IMPORTANT: configure in Jenkins Tools
+    }
+
     stages {
 
         stage('Checkout') {
@@ -57,16 +62,8 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-
-                archiveArtifacts(
-                    artifacts: 'shopfloor-backend/target/*.jar',
-                    fingerprint: true
-                )
-
-                archiveArtifacts(
-                    artifacts: 'shopfloor-angular/dist/**/*',
-                    fingerprint: true
-                )
+                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*', fingerprint: true
             }
         }
     }
@@ -74,11 +71,11 @@ pipeline {
     post {
 
         success {
-            echo 'Build Successful'
+            echo 'BUILD SUCCESSFUL ✔'
         }
 
         failure {
-            echo 'Build Failed'
+            echo 'BUILD FAILED ❌'
         }
 
         always {
