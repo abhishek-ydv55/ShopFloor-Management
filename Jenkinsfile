@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
-        maven 'Maven3'
+    options {
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     stages {
@@ -57,21 +57,9 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar', fingerprint: true
-                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*', fingerprint: true
+                archiveArtifacts artifacts: 'shopfloor-backend/target/*.jar'
+                archiveArtifacts artifacts: 'shopfloor-angular/dist/**/*'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'BUILD SUCCESSFUL ✔'
-        }
-        failure {
-            echo 'BUILD FAILED ❌'
-        }
-        always {
-            cleanWs()
         }
     }
 }
