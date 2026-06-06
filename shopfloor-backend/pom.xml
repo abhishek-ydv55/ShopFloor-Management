@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -16,50 +17,49 @@
     <artifactId>shopfloor-backend</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+
     <name>shopfloor-backend</name>
-    <description>ManuVya Shopfloor Management System - Enterprise Spring Boot Backend</description>
+    <description>ManuVya Shopfloor Management System</description>
 
     <properties>
         <java.version>17</java.version>
+
         <jjwt.version>0.12.5</jjwt.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <springdoc.version>2.5.0</springdoc.version>
+        <lombok.version>1.18.38</lombok.version>
 
-        <!-- Frontend build versions -->
         <node.version>v24.16.0</node.version>
         <npm.version>11.13.0</npm.version>
         <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
 
-        <!-- Set to true to skip Angular build: mvn package -Dskip.frontend.build=true -->
         <skip.frontend.build>false</skip.frontend.build>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Core -->
+
+        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- H2 In-Memory Database -->
+        <!-- H2 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -72,12 +72,14 @@
             <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -89,116 +91,132 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Springdoc OpenAPI / Swagger UI -->
+        <!-- Swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
-        <!-- Spring Boot Test -->
+        <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
-        <plugins>
-            <!-- =========================================================
-                 1. frontend-maven-plugin
-                 Installs Node/npm locally in target/, then runs
-                 npm install and ng build inside the frontend/ directory.
 
-                 Phase ordering:
-                   initialize        → download & install Node + npm
-                   generate-resources → npm install (uses local Node)
-                   generate-resources → npm run build:prod  (outputs to
-                                        frontend/dist/shopfloor-angular/browser/)
-                 ========================================================= -->
+        <plugins>
+
+            <!-- Lombok Annotation Processing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <!-- Angular Build -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>${frontend-maven-plugin.version}</version>
+
                 <configuration>
-                    <!-- All npm/node commands run inside this directory -->
                     <workingDirectory>frontend</workingDirectory>
-                    <!-- Node binary is downloaded here; excluded from the JAR -->
                     <installDirectory>target</installDirectory>
                     <skip>${skip.frontend.build}</skip>
                 </configuration>
+
                 <executions>
-                    <!-- Step 1: Download Node and npm into target/ -->
+
                     <execution>
                         <id>install-node-and-npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <phase>initialize</phase>
+
                         <configuration>
                             <nodeVersion>${node.version}</nodeVersion>
                             <npmVersion>${npm.version}</npmVersion>
                         </configuration>
                     </execution>
 
-                    <!-- Step 2: npm install (installs node_modules) -->
                     <execution>
                         <id>npm-install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <phase>generate-resources</phase>
+
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
 
-                    <!-- Step 3: ng build (production configuration) -->
                     <execution>
                         <id>npm-build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <phase>generate-resources</phase>
+
                         <configuration>
                             <arguments>run build:prod</arguments>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
 
-            <!-- =========================================================
-                 2. maven-resources-plugin (extra execution)
-                 Copies the Angular production build output
-                 (frontend/dist/shopfloor-angular/browser/**)
-                 into target/classes/static/ so Spring Boot's
-                 ResourceHandlerRegistry can serve it from the JAR.
-
-                 Runs in process-resources, which is AFTER
-                 generate-resources where the Angular build completes.
-                 ========================================================= -->
+            <!-- Copy Angular Build -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+
                 <executions>
                     <execution>
                         <id>copy-angular-build</id>
+
                         <phase>process-resources</phase>
+
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+
                         <configuration>
-                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                             <overwrite>true</overwrite>
+
+                            <outputDirectory>
+                                ${project.build.outputDirectory}/static
+                            </outputDirectory>
+
                             <resources>
                                 <resource>
                                     <directory>
@@ -207,19 +225,18 @@
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
+
                         </configuration>
                     </execution>
                 </executions>
+
             </plugin>
 
-            <!-- =========================================================
-                 3. spring-boot-maven-plugin
-                 Packages everything in target/classes (including the
-                 copied static/ folder) into a single executable JAR.
-                 ========================================================= -->
+            <!-- Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
                 <configuration>
                     <excludes>
                         <exclude>
@@ -228,7 +245,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+
             </plugin>
+
         </plugins>
+
     </build>
+
 </project>
