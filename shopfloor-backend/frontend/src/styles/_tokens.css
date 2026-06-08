@@ -1,0 +1,82 @@
+:root {
+  /* Brand Colors */
+  --brown-900: #2a1414;
+  --brown-700: #3f2020;
+  --brown-500: #5e352b;
+  --red-700: #9e1c1c;
+  --red-500: #c0392b;
+  --red-300: #e57373;
+
+  /* Surfaces */
+  --cream-bg: #eee8e1;
+  --white: #ffffff;
+  --gray-light: #f1f1f1;
+  --gray-border: #ddd;
+
+  /* Text */
+  --text-dark: #2c2c2c;
+  --text-muted: #666666;
+  --text-white: #ffffff;
+
+  /* Accent */
+  --accent-blue: #38bdf8;
+  --accent-green: #0a7d2c;
+  --accent-red: #e60000;
+
+  /* Gradients */
+  --grad-header: linear-gradient(135deg, var(--red-700), var(--brown-700));
+  --grad-brand: linear-gradient(135deg, var(--brown-500), var(--red-500));
+  --grad-dark: linear-gradient(135deg, var(--brown-900), var(--brown-700));
+  --grad-footer: linear-gradient(135deg, var(--brown-900), var(--red-700));
+
+  /* Typography */
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-family-heading: 'Montserrat', Arial, sans-serif;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 2.2rem;
+  --font-4xl: 2.8rem;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 50px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-brand: 0 10px 25px rgba(192,57,43,0.3);
+
+  /* Layout */
+  --sidebar-width: 220px;
+  --topbar-height: 64px;
+  --container-max: 1100px;
+
+  /* Breakpoints (used in media queries) */
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+
+  /* Transitions */
+  --transition: 0.3s ease;
+  --transition-slow: 0.4s ease;
+}

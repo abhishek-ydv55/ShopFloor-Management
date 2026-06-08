@@ -1,0 +1,131 @@
+@import './styles/_tokens.css';
+@import './styles/_typography.css';
+@import './styles/_layout.css';
+
+/* Global form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--gray-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-base);
+  background: var(--white);
+  color: var(--text-dark);
+  transition: border-color var(--transition);
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--red-500);
+}
+
+input.input-error,
+select.input-error,
+textarea.input-error {
+  border-color: var(--accent-red);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Page entrance */
+.page-content {
+  animation: fadeIn 0.25s ease both;
+}
+
+/* Stat cards staggered entrance */
+.cards-grid > *:nth-child(1) { animation: fadeInUp 0.32s ease both 0.00s; }
+.cards-grid > *:nth-child(2) { animation: fadeInUp 0.32s ease both 0.06s; }
+.cards-grid > *:nth-child(3) { animation: fadeInUp 0.32s ease both 0.12s; }
+.cards-grid > *:nth-child(4) { animation: fadeInUp 0.32s ease both 0.18s; }
+.cards-grid > *:nth-child(5) { animation: fadeInUp 0.32s ease both 0.24s; }
+
+/* ===== EMPTY STATES ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-8);
+  text-align: center;
+  animation: fadeIn 0.3s ease both;
+}
+.empty-state__title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-2);
+}
+.empty-state__msg {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+/* ===== TABLE ENHANCEMENTS ===== */
+/* Page title */
+.page-title {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: var(--space-5);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-sm);
+}
+th {
+  background: var(--gray-light);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 2px solid var(--gray-border);
+}
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--gray-border);
+  transition: background-color 0.15s ease;
+}
+tr:hover td {
+  background: var(--gray-light);
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+.badge--high   { background: #fee2e2; color: #b91c1c; }
+.badge--medium { background: #fef9c3; color: #854d0e; }
+.badge--low    { background: #dcfce7; color: #166534; }
+.badge--open   { background: #dbeafe; color: #1e40af; }
+.badge--pending{ background: #fef9c3; color: #854d0e; }
+.badge--closed { background: var(--gray-light); color: var(--text-muted); }
+.badge--approved { background: #dcfce7; color: #166534; }
+
