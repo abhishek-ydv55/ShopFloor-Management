@@ -16,15 +16,29 @@ pipeline {
 
         stage('Verify Environment') {
             steps {
-                bat 'java -version'
-                bat 'node -v'
-                bat 'npm -v'
+                script{
+                    if (isUnix()){
+                        sh 'java -version'
+                        sh 'node -v'
+                        sh 'npm -v'
+                    }else {
+                        bat 'java -version'
+                        bat 'node -v'
+                        bat 'npm -v'
+                    }
+                }
             }
         }
 
         stage('Check Maven Directly') {
             steps {
-                bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" -version'
+                script {
+                    if(isUnix()) {
+                        sh 'mvn -version'
+                    } else {
+                        bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" -version'
+                    }
+                }
             }
         }
 
@@ -47,7 +61,13 @@ pipeline {
         stage('Build Spring Boot') {
             steps {
                 dir('shopfloor-backend') {
-                    bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" clean package -DskipTests'
+                    script {
+                        if(isUnix()){
+                            sh 'mvn clean package -DskipTests'
+                        } else {
+                            bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" clean package -DskipTests'
+                        }
+                    }
                 }
             }
         }
@@ -55,7 +75,13 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 dir('shopfloor-backend') {
-                    bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" test'
+                    script{
+                        if(isUnix()){
+                            sh 'mvn test'
+                        }else {
+                            bat '"C:\\Users\\abhis\\apache-maven-3.9.16\\bin\\mvn.cmd" test'
+                        }
+                    }
                 }
             }
         }
